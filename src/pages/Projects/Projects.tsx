@@ -7,7 +7,11 @@ import ExitIcon from '@/assets/icons/iconamoon_exit.png'
 import SearchIcon from '@/assets/icons/iconamoon_search-light.svg'
 import AvatarIcon from '@/assets/icons/Avatar.svg'
 
-const Projects: React.FC = () => {
+interface ProjectsProps {
+    onProjectClick?: (id: string) => void
+}
+
+const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
     const [searchQuery, setSearchQuery] = useState('')
 
     // Mock data
@@ -55,7 +59,9 @@ const Projects: React.FC = () => {
     ]
 
     const handleProjectClick = (id: string) => {
-        console.log('Project clicked:', id)
+        if (onProjectClick) {
+            onProjectClick(id)
+        }
     }
 
     const handleNewProject = () => {

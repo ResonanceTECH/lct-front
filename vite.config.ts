@@ -8,9 +8,14 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    strictPort: true,
     hmr: {
       overlay: true,
+      protocol: 'ws',
     },
+  },
+  optimizeDeps: {
+    exclude: ['@vite/client', '@vite/env'],
   },
   resolve: {
     alias: {
