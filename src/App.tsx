@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useAuth } from '@/hooks'
 import DashboardLayout from '@/components/layout/DashboardLayout'
 import Landing from '@/pages/Landing'
 import Login from '@/pages/Auth/Login'
+import Register from '@/pages/Auth/Register'
 import { SidebarItem } from '@/components/layout/Sidebar'
 import './styles/variables.css'
 
 function App() {
   const { isAuthenticated, logout } = useAuth()
+  const [currentPage, setCurrentPage] = useState<'login' | 'register'>('login')
 
   // Sidebar navigation items
   const sidebarItems: SidebarItem[] = [
@@ -75,7 +77,10 @@ function App() {
   }
 
   if (!isAuthenticated) {
-    return <Login />
+    if (currentPage === 'register') {
+      return <Register onBackToLogin={() => setCurrentPage('login')} />
+    }
+    return <Login onNavigateToRegister={() => setCurrentPage('register')} />
   }
 
   // Mock user data for now

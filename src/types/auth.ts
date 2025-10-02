@@ -11,9 +11,9 @@ export interface User {
   lastLoginAt?: string
 }
 
-export type UserRole = 'admin' | 'manager' | 'supervisor' | 'worker' | 'client'
+export type UserRole = 'CUSTOMER' | 'FOREMAN' | 'INSPECTOR' | 'ADMIN'
 
-export type Permission = 
+export type Permission =
   | 'objects:read'
   | 'objects:write'
   | 'objects:delete'
@@ -50,10 +50,8 @@ export interface RegisterData {
   lastName: string
   phone: string
   password: string
-  role: UserRole
+  role: number
 }
-
-export type UserRole = 'CUSTOMER' | 'FOREMAN' | 'INSPECTOR' | 'ADMIN'
 
 export interface AuthResponse {
   jwt: string

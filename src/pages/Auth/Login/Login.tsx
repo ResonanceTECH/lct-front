@@ -3,7 +3,11 @@ import { useAuth } from '@/hooks/useAuth'
 import styles from './Login.module.css'
 import GosulugiIcon from '@/assets/icons/gosuslugi.svg'
 
-const Login: React.FC = () => {
+interface LoginProps {
+    onNavigateToRegister?: () => void
+}
+
+const Login: React.FC<LoginProps> = ({ onNavigateToRegister }) => {
     const { login, isLoading, error, clearError } = useAuth()
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
@@ -35,6 +39,12 @@ const Login: React.FC = () => {
 
     const handleGosuslugiLeave = () => {
         setGosuslugiText('Войти через Госуслуги')
+    }
+
+    const handleRegister = () => {
+        if (onNavigateToRegister) {
+            onNavigateToRegister()
+        }
     }
 
     return (
@@ -139,7 +149,7 @@ const Login: React.FC = () => {
                             <button
                                 type="button"
                                 className={styles.registerLink}
-                                onClick={() => console.log('Navigate to register')}
+                                onClick={handleRegister}
                             >
                                 Создать учетную запись
                             </button>
