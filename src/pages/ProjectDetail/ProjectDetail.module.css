@@ -1,0 +1,662 @@
+/* Import Manrope font */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+.projectDetailPage {
+  min-height: 100vh;
+  background: #F3F3F3;
+}
+
+/* Header - Same as Projects page */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navLink {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1F2937;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: #7B58FD;
+}
+
+.navLink:first-child {
+  color: #7B58FD;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 1;
+}
+
+.userName {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #1F2937;
+}
+
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.iconButton:hover {
+  opacity: 0.7;
+}
+
+.iconButton img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+}
+
+.breadcrumbLink {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #6B7280;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbLink:hover {
+  color: #7B58FD;
+}
+
+.breadcrumbSeparator {
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.breadcrumbCurrent {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #1F2937;
+}
+
+/* Main Content */
+.mainContent {
+  padding: 40px;
+  max-width: 1744px;
+  margin: 0 auto;
+}
+
+/* Project Header */
+.projectHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.projectTitle {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 64px;
+  letter-spacing: 0%;
+  color: #1F2937;
+  margin: 0;
+}
+
+.statusBadge {
+  width: 146px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 30px;
+  padding: 8px 12px;
+  background: #E5CE35;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1F2937;
+}
+
+/* Progress Section */
+.progressSection {
+  margin-bottom: 32px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: #E5E7EB;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  background: #7B58FD;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progressInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+}
+
+.progressLabel {
+  font-weight: 500;
+  color: #6B7280;
+}
+
+.progressValue {
+  font-weight: 600;
+  color: #1F2937;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  border-bottom: 2px solid #E5E7EB;
+  overflow-x: auto;
+}
+
+.tab {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #6B7280;
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.tab:hover {
+  color: #1F2937;
+}
+
+.tabActive {
+  color: #7B58FD;
+}
+
+.tabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #7B58FD;
+}
+
+/* Content Grid */
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* Section Headers */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 42px;
+  letter-spacing: 0%;
+  color: #1F2937;
+  margin: 0;
+}
+
+.menuIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.menuIcon:hover {
+  opacity: 1;
+}
+
+/* Description Section */
+.descriptionSection {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.projectImage {
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.projectImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projectInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.infoLabel {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #6B7280;
+  flex-shrink: 0;
+}
+
+.infoValue {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #1F2937;
+  text-align: right;
+}
+
+/* Tech Specs Section */
+.techSpecsSection {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.specsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.specCard {
+  background: #F9FAFB;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.specLabel {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 8px;
+}
+
+.specValue {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  color: #1F2937;
+}
+
+/* Participants Section */
+.participantsSection {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.participantCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.participantCard:last-child {
+  border-bottom: none;
+}
+
+.participantAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #E5E7EB;
+}
+
+.participantInfo {
+  flex: 1;
+}
+
+.participantRole {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: #6B7280;
+  margin-bottom: 4px;
+}
+
+.participantName {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1F2937;
+}
+
+/* Documents Section */
+.documentsSection {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.documentsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.documentCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #F9FAFB;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.documentCard:hover {
+  background: #F3F4F6;
+}
+
+.pdfIcon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.documentInfo {
+  flex: 1;
+}
+
+.documentName {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1F2937;
+  margin-bottom: 4px;
+}
+
+.documentDate {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #6B7280;
+}
+
+/* Stages Section */
+.stagesSection {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.stagesList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stageItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.stageStatus {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.stageStatusCompleted {
+  background: #10B981;
+}
+
+.stageStatusError {
+  background: #EF4444;
+}
+
+.stageStatusPending {
+  background: #6B7280;
+}
+
+.stageInfo {
+  flex: 1;
+}
+
+.stageName {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1F2937;
+  margin-bottom: 4px;
+}
+
+.stageDetails {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 4px;
+}
+
+.stageDates {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+/* Map Section */
+.mapSection {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.mapContainer {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  background: #E5E7EB;
+  margin-bottom: 16px;
+}
+
+.mapInfo {
+  margin-bottom: 16px;
+}
+
+.mapTitle {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1F2937;
+  margin-bottom: 4px;
+}
+
+.mapAddress {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+/* Show All Button */
+.showAllButton {
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #7B58FD;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.showAllButton:hover {
+  background: #F9FAFB;
+  border-color: #7B58FD;
+}
+
+.expandMapButton {
+  width: 100%;
+  padding: 12px;
+  background: #7B58FD;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.expandMapButton:hover {
+  background: #6344E8;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .documentsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 20px;
+  }
+  
+  .projectTitle {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  
+  .sectionTitle {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  
+  .tabs {
+    overflow-x: scroll;
+  }
+  
+  .mapContainer {
+    height: 300px;
+  }
+}
+
