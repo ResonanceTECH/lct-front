@@ -5,7 +5,6 @@ import Input from '@/components/common/Input'
 
 const Home: React.FC = () => {
     const [inputValue, setInputValue] = React.useState('')
-    const [showModal, setShowModal] = React.useState(false)
 
     return (
         <div className="home-page">
@@ -40,7 +39,7 @@ const Home: React.FC = () => {
                         variant="outlined"
                     >
                         <div className="button-group">
-                            <Button variant="primary" onClick={() => setShowModal(true)}>
+                            <Button variant="primary" onClick={() => alert('Модал откроется позже')}>
                                 Открыть модал
                             </Button>
                             <Button variant="success">

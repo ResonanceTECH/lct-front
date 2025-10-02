@@ -1,12 +1,14 @@
-import { format, parseISO, isValid } from 'date-fns'
-import { ru } from 'date-fns/locale'
-
 // Date formatting
-export const formatDate = (date: string | Date, formatStr = 'dd.MM.yyyy'): string => {
+export const formatDate = (date: string | Date): string => {
   try {
-    const dateObj = typeof date === 'string' ? parseISO(date) : date
-    if (!isValid(dateObj)) return 'Неверная дата'
-    return format(dateObj, formatStr, { locale: ru })
+    const dateObj = typeof date === 'string' ? new Date(date) : date
+    if (isNaN(dateObj.getTime())) return 'Неверная дата'
+    
+    const day = String(dateObj.getDate()).padStart(2, '0')
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0')
+    const year = dateObj.getFullYear()
+    
+    return `${day}.${month}.${year}`
   } catch (error) {
     console.error('Date formatting error:', error)
     return 'Неверная дата'
@@ -14,11 +16,36 @@ export const formatDate = (date: string | Date, formatStr = 'dd.MM.yyyy'): strin
 }
 
 export const formatDateTime = (date: string | Date): string => {
-  return formatDate(date, 'dd.MM.yyyy HH:mm')
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date
+    if (isNaN(dateObj.getTime())) return 'Неверная дата'
+    
+    const day = String(dateObj.getDate()).padStart(2, '0')
+    const month = String(dateObj.getMonth() + 1).padStart(2, '0')
+    const year = dateObj.getFullYear()
+    const hours = String(dateObj.getHours()).padStart(2, '0')
+    const minutes = String(dateObj.getMinutes()).padStart(2, '0')
+    
+    return `${day}.${month}.${year} ${hours}:${minutes}`
+  } catch (error) {
+    console.error('Date formatting error:', error)
+    return 'Неверная дата'
+  }
 }
 
 export const formatTime = (date: string | Date): string => {
-  return formatDate(date, 'HH:mm')
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date
+    if (isNaN(dateObj.getTime())) return 'Неверное время'
+    
+    const hours = String(dateObj.getHours()).padStart(2, '0')
+    const minutes = String(dateObj.getMinutes()).padStart(2, '0')
+    
+    return `${hours}:${minutes}`
+  } catch (error) {
+    console.error('Time formatting error:', error)
+    return 'Неверное время'
+  }
 }
 
 // String formatting
@@ -103,7 +130,7 @@ export const uniqueBy = <T>(array: T[], key: keyof T): T[] => {
 }
 
 // Object utilities
-export const pick = <T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {
+export const pick = <T extends object, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> => {
   const result = {} as Pick<T, K>
   keys.forEach(key => {
     if (key in obj) {
@@ -154,10 +181,10 @@ export const debounce = <T extends (...args: any[]) => any>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout
+  let timeout: number | undefined
   return (...args: Parameters<T>) => {
     clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
+    timeout = setTimeout(() => func(...args), wait) as unknown as number
   }
 }
 

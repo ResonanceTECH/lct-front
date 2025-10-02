@@ -29,9 +29,9 @@ export interface ConstructionObject {
     email: string
   }
   workers: Worker[]
-  materials: Material[]
-  violations: Violation[]
-  remarks: Remark[]
+  materials: any[]
+  violations: any[]
+  remarks: any[]
   photos: Photo[]
   documents: Document[]
   progress: number
