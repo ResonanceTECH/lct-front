@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${FRONTEND_PORT:-3000}:3000"
+      - "${APP_PORT:-3000}:3000"
     restart: unless-stopped
     labels:
       - io.portainer.accesscontrol.teams=LCT
