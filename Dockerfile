@@ -11,15 +11,19 @@ RUN npm ci --legacy-peer-deps
 COPY . .
 RUN npm run build
 
-# Stage 2: Production (Serve with Nginx)
-FROM nginx:alpine
+# Stage 2: Production (Serve with Node.js)
+FROM node:20-alpine
+
+WORKDIR /usr/app
+
+# Install serve to serve static files
+RUN npm install -g serve
 
 # Copy built files from build stage
-COPY --from=build /usr/app/dist /usr/share/nginx/html
+COPY --from=build /usr/app/dist ./dist
 
-# Copy custom Nginx configuration (optional, for custom settings)
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Expose port (configurable via .env)
+EXPOSE ${FRONTEND_PORT:-3000}
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Serve the static files
+CMD ["serve", "-s", "dist", "-l", "${FRONTEND_PORT:-3000}"]

@@ -51,7 +51,7 @@ jobs:
       - name: Send failure notification to Telegram
         if: failure()
         run: |
-          ERROR_LOG=$(docker logs lct_frontend 2>&1 | tail -n 50)
+          ERROR_LOG=$(docker logs lct_frontend 2>&1 | tail -n 50 | sed 's/!/\\!/g')
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TG_TOKEN }}/sendMessage" \
           -d "chat_id=${{ secrets.TG_CHANNEL }}" \
           -d "text=❌ Build failed! 😞%0AError log:%0A\`\`\`%0A$ERROR_LOG%0A\`\`\`" \
