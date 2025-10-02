@@ -1,0 +1,158 @@
+.loginForm {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.formHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.25;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.errorAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.errorIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 0.25rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  appearance: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.checkbox:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.checkboxText {
+  user-select: none;
+}
+
+.formActions {
+  margin-bottom: 1.5rem;
+}
+
+.formFooter {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.forgotLink {
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s ease-in-out;
+}
+
+.forgotLink:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.signupLink {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.signupLinkText {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease-in-out;
+}
+
+.signupLinkText:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .loginForm {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .formFields {
+    gap: 1.25rem;
+  }
+}
