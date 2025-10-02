@@ -2,12 +2,12 @@ import React from 'react'
 import { useAuth } from '@/hooks'
 import DashboardLayout from '@/components/layout/DashboardLayout'
 import Landing from '@/pages/Landing'
-import LoginForm from '@/components/features/auth/LoginForm'
+import Login from '@/pages/Auth/Login'
 import { SidebarItem } from '@/components/layout/Sidebar'
 import './styles/variables.css'
 
 function App() {
-  const { isAuthenticated, user, login, logout } = useAuth()
+  const { isAuthenticated, logout } = useAuth()
 
   // Sidebar navigation items
   const sidebarItems: SidebarItem[] = [
@@ -69,36 +69,25 @@ function App() {
     },
   ]
 
-  const handleLogin = async (credentials: any) => {
-    try {
-      await login(credentials)
-    } catch (error) {
-      console.error('Login error:', error)
-    }
-  }
 
   const handleLogout = () => {
     logout()
   }
 
   if (!isAuthenticated) {
-    return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        padding: '2rem'
-      }}>
-        <LoginForm onSubmit={handleLogin} />
-      </div>
-    )
+    return <Login />
+  }
+
+  // Mock user data for now
+  const mockUser = {
+    name: 'Пользователь',
+    email: 'user@example.com',
+    role: 'CUSTOMER'
   }
 
   return (
     <DashboardLayout
-      user={user}
+      user={mockUser}
       sidebarItems={sidebarItems}
       onLogout={handleLogout}
       onProfileClick={() => console.log('Profile clicked')}

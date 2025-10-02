@@ -1,11 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
-import { User, AuthState, LoginCredentials, RegisterData } from '@/types/auth'
+import { AuthState, LoginCredentials, RegisterData } from '@/types/auth'
 import { authService } from '@/services/api'
 
 export const useAuth = () => {
   const [authState, setAuthState] = useState<AuthState>({
-    user: null,
-    token: null,
     isAuthenticated: false,
     isLoading: true,
     error: null,
@@ -13,29 +11,17 @@ export const useAuth = () => {
 
   // Initialize auth state
   useEffect(() => {
-    const initializeAuth = async () => {
+    const initializeAuth = () => {
       try {
         const token = authService.getToken()
-        if (token) {
-          const user = await authService.getCurrentUser()
-          setAuthState({
-            user,
-            token,
-            isAuthenticated: true,
-            isLoading: false,
-            error: null,
-          })
-        } else {
-          setAuthState(prev => ({
-            ...prev,
-            isLoading: false,
-          }))
-        }
+        setAuthState({
+          isAuthenticated: !!token,
+          isLoading: false,
+          error: null,
+        })
       } catch (error) {
         console.error('Auth initialization error:', error)
         setAuthState({
-          user: null,
-          token: null,
           isAuthenticated: false,
           isLoading: false,
           error: error instanceof Error ? error.message : 'Ошибка инициализации',
@@ -52,8 +38,6 @@ export const useAuth = () => {
     try {
       const response = await authService.login(credentials)
       setAuthState({
-        user: response.user,
-        token: response.token,
         isAuthenticated: true,
         isLoading: false,
         error: null,
@@ -76,8 +60,6 @@ export const useAuth = () => {
     try {
       const response = await authService.register(userData)
       setAuthState({
-        user: response.user,
-        token: response.token,
         isAuthenticated: true,
         isLoading: false,
         error: null,
@@ -103,8 +85,6 @@ export const useAuth = () => {
       console.error('Logout error:', error)
     } finally {
       setAuthState({
-        user: null,
-        token: null,
         isAuthenticated: false,
         isLoading: false,
         error: null,
@@ -112,42 +92,16 @@ export const useAuth = () => {
     }
   }, [])
 
-  const updateUser = useCallback((user: User) => {
-    setAuthState(prev => ({
-      ...prev,
-      user,
-    }))
-  }, [])
-
   const clearError = useCallback(() => {
     setAuthState(prev => ({ ...prev, error: null }))
   }, [])
-
-  const hasPermission = useCallback((permission: string) => {
-    if (!authState.user) return false
-    return authState.user.permissions.includes(permission as any)
-  }, [authState.user])
-
-  const hasRole = useCallback((role: string) => {
-    if (!authState.user) return false
-    return authState.user.role === role
-  }, [authState.user])
-
-  const hasAnyRole = useCallback((roles: string[]) => {
-    if (!authState.user) return false
-    return roles.includes(authState.user.role)
-  }, [authState.user])
 
   return {
     ...authState,
     login,
     register,
     logout,
-    updateUser,
     clearError,
-    hasPermission,
-    hasRole,
-    hasAnyRole,
   }
 }
 

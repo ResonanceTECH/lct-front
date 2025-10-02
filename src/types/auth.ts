@@ -41,25 +41,22 @@ export interface AuthState {
 }
 
 export interface LoginCredentials {
-  email: string
+  phone: string
   password: string
-  rememberMe: boolean
 }
 
 export interface RegisterData {
-  email: string
+  firstName: string
+  lastName: string
+  phone: string
   password: string
-  confirmPassword: string
-  name: string
   role: UserRole
-  company?: string
 }
 
+export type UserRole = 'CUSTOMER' | 'FOREMAN' | 'INSPECTOR' | 'ADMIN'
+
 export interface AuthResponse {
-  user: User
-  token: string
-  refreshToken: string
-  expiresIn: number
+  jwt: string
 }
 
 export interface PasswordResetRequest {

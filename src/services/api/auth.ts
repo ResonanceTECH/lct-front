@@ -1,21 +1,19 @@
-import { 
-  AuthResponse, 
-  LoginCredentials, 
-  RegisterData, 
-  User, 
+import {
+  AuthResponse,
+  LoginCredentials,
+  RegisterData,
+  User,
   PasswordResetRequest,
   PasswordResetConfirm,
   ChangePasswordData,
-  UpdateProfileData 
+  UpdateProfileData
 } from '@/types/auth'
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://lct-back.kixylab.ru'
 
 class AuthService {
-  private baseUrl = `${API_BASE_URL}/auth`
-
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseUrl}/login`, {
+    const response = await fetch(`${API_BASE_URL}/sign/in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,16 +27,15 @@ class AuthService {
     }
 
     const data = await response.json()
-    
-    // Store token in localStorage
-    localStorage.setItem('token', data.token)
-    localStorage.setItem('refreshToken', data.refreshToken)
-    
+
+    // Store JWT token in localStorage
+    localStorage.setItem('jwt', data.jwt)
+
     return data
   }
 
   async register(userData: RegisterData): Promise<AuthResponse> {
-    const response = await fetch(`${this.baseUrl}/register`, {
+    const response = await fetch(`${API_BASE_URL}/sign/up`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,38 +49,21 @@ class AuthService {
     }
 
     const data = await response.json()
-    
-    // Store token in localStorage
-    localStorage.setItem('token', data.token)
-    localStorage.setItem('refreshToken', data.refreshToken)
-    
+
+    // Store JWT token in localStorage
+    localStorage.setItem('jwt', data.jwt)
+
     return data
   }
 
   async logout(): Promise<void> {
-    const token = localStorage.getItem('token')
-    
-    if (token) {
-      try {
-        await fetch(`${this.baseUrl}/logout`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        })
-      } catch (error) {
-        console.error('Logout error:', error)
-      }
-    }
-    
-    // Clear stored tokens
-    localStorage.removeItem('token')
-    localStorage.removeItem('refreshToken')
+    // Clear stored JWT token
+    localStorage.removeItem('jwt')
   }
 
   async getCurrentUser(): Promise<User> {
     const token = localStorage.getItem('token')
-    
+
     if (!token) {
       throw new Error('No token found')
     }
@@ -108,7 +88,7 @@ class AuthService {
 
   async refreshToken(): Promise<string> {
     const refreshToken = localStorage.getItem('refreshToken')
-    
+
     if (!refreshToken) {
       throw new Error('No refresh token found')
     }
@@ -130,7 +110,7 @@ class AuthService {
 
     const data = await response.json()
     localStorage.setItem('token', data.token)
-    
+
     return data.token
   }
 
@@ -166,7 +146,7 @@ class AuthService {
 
   async changePassword(data: ChangePasswordData): Promise<void> {
     const token = localStorage.getItem('token')
-    
+
     if (!token) {
       throw new Error('No token found')
     }
@@ -188,7 +168,7 @@ class AuthService {
 
   async updateProfile(data: UpdateProfileData): Promise<User> {
     const token = localStorage.getItem('token')
-    
+
     if (!token) {
       throw new Error('No token found')
     }
@@ -216,7 +196,7 @@ class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token')
+    return localStorage.getItem('jwt')
   }
 
   isAuthenticated(): boolean {

@@ -5,7 +5,7 @@ export * from './violations'
 export * from './common'
 
 // Re-export commonly used types
-export type { User, UserRole, Permission, AuthState } from './auth'
+export type { UserRole, AuthState, LoginCredentials, RegisterData, AuthResponse } from './auth'
 export type { ConstructionObject, ObjectStatus, ObjectType } from './objects'
 export type { Material, MaterialCategory, MaterialStatus } from './materials'
 export type { Violation, ViolationType, ViolationSeverity } from './violations'
