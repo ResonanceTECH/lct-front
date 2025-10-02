@@ -6,6 +6,7 @@ import ExitIcon from '@/assets/icons/iconamoon_exit.png'
 import AvatarIcon from '@/assets/icons/Avatar.svg'
 import MenuIcon from '@/assets/icons/material-symbols_menu-rounded.png'
 import PdfIcon from '@/assets/icons/proicons_pdf.png'
+import Map from '@/components/Map'
 
 interface ProjectDetailProps {
     projectId: string
@@ -14,6 +15,11 @@ interface ProjectDetailProps {
 
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
     const [activeTab, setActiveTab] = useState<string>('passport')
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [mapCoordinates, setMapCoordinates] = useState<{ longitude: number; latitude: number }>({
+        longitude: 37.743,
+        latitude: 55.778
+    })
 
     // Mock project data
     const project = {
@@ -54,6 +60,38 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
         console.log('Logout clicked')
     }
 
+    const handleMapMarkerChange = (coords: { longitude: number; latitude: number }) => {
+        setMapCoordinates(coords)
+        console.log('Новые координаты маркера:', coords)
+
+        // Отправка координат на бэкенд
+        sendCoordinatesToBackend(coords)
+    }
+
+    const sendCoordinatesToBackend = async (coords: { longitude: number; latitude: number }) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://lct-back.kixylab.ru'}/projects/${projectId}/location`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+                },
+                body: JSON.stringify({
+                    longitude: coords.longitude,
+                    latitude: coords.latitude
+                })
+            })
+
+            if (response.ok) {
+                console.log('Координаты успешно сохранены на бэкенде')
+            } else {
+                console.error('Ошибка сохранения координат:', await response.text())
+            }
+        } catch (error) {
+            console.error('Ошибка отправки координат на бэкенд:', error)
+        }
+    }
+
     return (
         <div className={styles.projectDetailPage}>
             {/* Header */}
@@ -78,7 +116,81 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                         <img src={ExitIcon} alt="Выход" />
                     </button>
                 </div>
+
+                {/* Mobile Burger Menu Button */}
+                <button
+                    className={styles.burgerButton}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Меню"
+                >
+                    <img src={MenuIcon} alt="Меню" />
+                </button>
             </header>
+
+            {/* Mobile Menu Overlay */}
+            {isMobileMenuOpen && (
+                <div className={styles.mobileMenuOverlay} onClick={() => setIsMobileMenuOpen(false)}>
+                    <div className={styles.mobileMenu} onClick={(e) => e.stopPropagation()}>
+                        <div className={styles.mobileMenuHeader}>
+                            <img src={Logo} alt="Logo" className={styles.logo} />
+                            <button
+                                className={styles.closeButton}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <div className={styles.mobileMenuUser}>
+                            <img src={AvatarIcon} alt="Аватар" className={styles.userAvatar} />
+                            <span className={styles.userName}>Морозова Н.А.</span>
+                        </div>
+
+                        <nav className={styles.mobileMenuNav}>
+                            <button
+                                onClick={() => {
+                                    onBack()
+                                    setIsMobileMenuOpen(false)
+                                }}
+                                className={styles.mobileNavLink}
+                            >
+                                Проекты
+                            </button>
+                            <a
+                                href="#"
+                                className={styles.mobileNavLink}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Задачи
+                            </a>
+                            <a
+                                href="#"
+                                className={styles.mobileNavLink}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Настройки
+                            </a>
+                        </nav>
+
+                        <div className={styles.mobileMenuActions}>
+                            <button className={styles.mobileActionButton}>
+                                <img src={NotificationIcon} alt="Уведомления" />
+                                <span>Уведомления</span>
+                            </button>
+                            <button
+                                className={styles.mobileActionButton}
+                                onClick={() => {
+                                    handleLogout()
+                                    setIsMobileMenuOpen(false)
+                                }}
+                            >
+                                <img src={ExitIcon} alt="Выход" />
+                                <span>Выход</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Breadcrumbs */}
             <div className={styles.breadcrumbs}>
@@ -281,17 +393,21 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                         <img src={MenuIcon} alt="Меню" className={styles.menuIcon} />
                     </div>
                     <div className={styles.mapContainer}>
-                        <iframe
-                            src="https://widgets.2gis.com/widget?type=firmsonmap&options=%7B%22pos%22%3A%7B%22lat%22%3A55.7558%2C%22lon%22%3A37.6176%2C%22zoom%22%3A15%7D%2C%22opt%22%3A%7B%22city%22%3A%22moscow%22%7D%2C%22org%22%3A%22%22%7D"
-                            width="100%"
-                            height="100%"
-                            style={{ border: 'none', borderRadius: '12px' }}
-                            title="2GIS Map"
-                        ></iframe>
+                        <Map
+                            center={[mapCoordinates.longitude, mapCoordinates.latitude]}
+                            markerPosition={[mapCoordinates.longitude, mapCoordinates.latitude]}
+                            zoom={15}
+                            editable={false}
+                            onMarkerChange={handleMapMarkerChange}
+                        />
                     </div>
                     <div className={styles.mapInfo}>
                         <div className={styles.mapTitle}>{project.title}</div>
                         <div className={styles.mapAddress}>{project.address}</div>
+                        <div className={styles.mapCoordinates}>
+                            <span>Широта: {mapCoordinates.latitude.toFixed(6)}</span>
+                            <span>Долгота: {mapCoordinates.longitude.toFixed(6)}</span>
+                        </div>
                     </div>
                     <button className={styles.expandMapButton}>Развернуть</button>
                 </div>

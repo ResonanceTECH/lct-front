@@ -98,6 +98,141 @@
   object-fit: contain;
 }
 
+/* Burger Menu Button */
+.burgerButton {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.burgerButton img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Mobile Menu Overlay */
+.mobileMenuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mobileMenu {
+  width: 80%;
+  max-width: 320px;
+  background: #FFFFFF;
+  height: 100vh;
+  overflow-y: auto;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileMenuHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  color: #6B7280;
+  transition: color 0.2s ease;
+}
+
+.closeButton:hover {
+  color: #1F2937;
+}
+
+.mobileMenuUser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.mobileMenuNav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.mobileNavLink {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1F2937;
+  text-decoration: none;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mobileNavLink:hover {
+  background: #F9FAFB;
+}
+
+.mobileNavLink:active {
+  background: #F3F4F6;
+}
+
+.mobileMenuActions {
+  margin-top: auto;
+  padding: 20px;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileActionButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: none;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #1F2937;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobileActionButton:hover {
+  background: #F9FAFB;
+  border-color: #7B58FD;
+}
+
+.mobileActionButton img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
 /* Breadcrumbs */
 .breadcrumbs {
   padding: 16px 40px;
@@ -585,6 +720,22 @@
   font-weight: 400;
   font-size: 14px;
   color: #6B7280;
+  margin-bottom: 8px;
+}
+
+.mapCoordinates {
+  display: flex;
+  gap: 16px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.mapCoordinates span {
+  padding: 4px 8px;
+  background: #F9FAFB;
+  border-radius: 4px;
 }
 
 /* Show All Button */
@@ -637,6 +788,28 @@
 }
 
 @media (max-width: 768px) {
+  /* Hide desktop navigation */
+  .headerNav {
+    display: none;
+  }
+
+  .headerRight {
+    display: none;
+  }
+
+  /* Show burger button */
+  .burgerButton {
+    display: flex;
+  }
+
+  .header {
+    padding: 16px 20px;
+  }
+
+  .breadcrumbs {
+    padding: 12px 20px;
+  }
+
   .mainContent {
     padding: 20px;
   }
@@ -657,6 +830,47 @@
   
   .mapContainer {
     height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .breadcrumbs {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .mainContent {
+    padding: 16px;
+  }
+
+  .projectTitle {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .statusBadge {
+    width: auto;
+    height: 36px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .mapContainer {
+    height: 250px;
   }
 }
 
