@@ -3,7 +3,7 @@ name: LCT-CI
 on:
     push:
         branches:
-            - ci-add
+            - main
 
 concurrency:
     group: ci-${{ github.ref }}
@@ -23,7 +23,7 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4
               with:
-                  ref: ci-add
+                  ref: main
 
             - name: Deploy app
               run: |
